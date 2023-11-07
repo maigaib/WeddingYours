@@ -55,16 +55,13 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/wedding couple.png
-    - assets/images/bijoux.png
-    - assets/images/hdressing.png
-    - assets/images/maliview.png
-   # - assets/images/wedding couple.png
+    - assets/images/
 
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/Poppins-Bold.ttf
+        #- asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
