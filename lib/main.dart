@@ -30,16 +30,17 @@ class _MyAppState extends State<MyApp> {
         //   title: Text("Accueil"),
         // ),
         body: [
-          Connexion(),
+          //Connexion(),
           Accueil(),
           Messages(),
           Mariages(),
           Invites(),
           Prestataires()
         ][_currentIndex],
-        bottomNavigationBar: _currentIndex == 0
-            ? null
-         :BottomNavigationBar(
+        bottomNavigationBar:
+        // _currentIndex == 0
+         //   ? null
+         BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (index) => setCurrentIndex(index) ,
             selectedItemColor: Color.fromRGBO(253, 139, 139, 1),
