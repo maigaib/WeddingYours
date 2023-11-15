@@ -1,5 +1,6 @@
 import 'package:app_wedding_yours/pages/accueil.dart';
-import 'package:app_wedding_yours/pages/connexion.dart';
+//import 'package:app_wedding_yours/pages/connexion.dart';
+import 'package:app_wedding_yours/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:app_wedding_yours/pages/invites.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
         //   title: Text("Accueil"),
         // ),
         body: [
-          //Connexion(),
+          Home(),
           Accueil(),
           Messages(),
           Mariages(),

@@ -1,4 +1,5 @@
-import 'package:app_wedding_yours/pages/accueil.dart';
+import 'package:app_wedding_yours/pages/mariageAdd.dart';
+import 'package:app_wedding_yours/pages/mariage_content.dart';
 import 'package:flutter/material.dart';
 
 class Mariages extends StatefulWidget {
@@ -9,6 +10,7 @@ class Mariages extends StatefulWidget {
 }
 
 class _MariagesState extends State<Mariages> {
+
   Widget buildCardM(String imagePath, String title) {
     return Card(
       shape: RoundedRectangleBorder(
@@ -21,7 +23,7 @@ class _MariagesState extends State<Mariages> {
           // Conteneur de l'image avec une hauteur personnalisée
           Container(
             width: double.infinity,
-            height: 90,
+            height: 120,
             child: Image.asset(
               imagePath,
               fit: BoxFit.cover,
@@ -79,22 +81,40 @@ class _MariagesState extends State<Mariages> {
           child: Row(
             children: <Widget>[
               Expanded(
+                child:InkWell(
+                      onTap: () {
+                        // Ajoutez ici la logique de navigation
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MariageContent()),
+                        );
+                      },
                 child: Container(
                   //color: Colors.blue,
-                  height: 150,
+                  height: 180,
                   child: Center(
                     child: buildCardM("assets/images/hdressing.png", "Mariage 1"),
                   ),
+                ), 
                 ),
               ),
               Expanded(
+                child:InkWell(
+                        onTap: () {
+                          // Ajoutez ici la logique de navigation
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => MariageContent()),
+                          );
+                        },
                 child: Container(
                   //color: Colors.green,
-                  height: 150,
+                  height: 180,
                   child: Center(
                     child: buildCardM("assets/images/mariee 1.png", "Mariage 2"),
                   ),
                 ),
+              ),
               ),
             ],
           ),
@@ -120,7 +140,7 @@ class _MariagesState extends State<Mariages> {
             // Vous pouvez naviguer vers la page d'accueil une fois la connexion réussie
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Accueil()),
+              MaterialPageRoute(builder: (context) => MariageAdd()),
             );
           },
            child: const Row(

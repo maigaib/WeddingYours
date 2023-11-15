@@ -16,11 +16,16 @@ class _AccueilState extends State<Accueil> {
       {
        "type" : "photo",
        "nom" : "Mali View",
-       "image" : "wedding couple"
+       "image" : "maliview"
       },
       {
        "type" : "photo",
-       "nom" : "Mali View",
+       "nom" : "H Dressing",
+       "image" : "hdressing"
+      },
+      {
+       "type" : "photo",
+       "nom" : "Bijouterie Moderne",
        "image" : "bijoux"
       }
     ];
@@ -43,7 +48,7 @@ class _AccueilState extends State<Accueil> {
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 6),
         // Titre et icône centrés
         Column(
           children: <Widget>[
@@ -58,12 +63,12 @@ class _AccueilState extends State<Accueil> {
                     fontSize: 18,
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: 8),
                 // Icône
                 Icon(Icons.star, color: Colors.yellow),
               ],
             ),
-            SizedBox(height: 10),
+           // SizedBox(height: 10),
             // Sous-titre
             Container(
               alignment: Alignment.centerLeft,
@@ -125,7 +130,7 @@ class _AccueilState extends State<Accueil> {
           width: 350,
           child: CarouselSlider(
   options: CarouselOptions(
-    height: 280,
+    height: 250,
     enableInfiniteScroll: true,
     autoPlay: true,
     autoPlayInterval: Duration(seconds: 3),
@@ -160,15 +165,22 @@ class _AccueilState extends State<Accueil> {
               final img = prestataire['image'];
               final nom = prestataire['nom'];
 
-              return Container(
-                width: 30,
-                child:Card(
-                child: ListTile(
-                  leading: Image.asset("assets/images/$img.png"),
-                  title: Text('$nom'),
-                ),
-              ),
-              );
+                    return Container(
+                          //width: 30,
+                          child: Card(
+                            elevation: 5,
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: Image.asset("assets/images/$img.png"),
+                                  title: Text('$nom'),
+                                ),
+                                SizedBox(height: 15),
+                              ],
+                            ),
+                          ),
+                        );
+
             },
           ),
           Container(
