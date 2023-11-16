@@ -75,10 +75,147 @@ class MariageContent extends StatelessWidget {
 
             ]
               ),
+         SizedBox(height:10),
+         Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    SizedBox(width: 1),
+    Icon(Icons.location_on, color: Colors.grey),
+    Text('Bamako, Mali'),
+    SizedBox(width: 40),
+    GestureDetector(
+      onTap: () {
+        // Action à effectuer lors du clic sur l'icône
+        print('Icône cliquable cliquée !');
+      },
+      child: Icon(Icons.edit_document, color: Colors.grey),
+    ),
+    SizedBox(width: 2),
+  ],
+),
+
+         SizedBox(height:10),
        
        Column(
             children: [
               Row(
+                children: [
+                  Center(
+                    child: Container(
+                        width:125,
+                        height: 130,
+                      child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                            SizedBox(height:10),
+                          Container(
+                           width:40,
+                              height: 40,
+                            child: Image.asset(
+                      "assets/images/icons8-wallet-64.png",
+                      fit: BoxFit.contain,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                      "Budget",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                    ),
+                    ),
+                  ),
+
+                  Container(
+                        width:125,
+                        height: 130,
+                      child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                            SizedBox(height:10),
+                          Container(
+                           width:40,
+                              height: 40,
+                            child: Image.asset(
+                      "assets/images/bijoux.png",
+                      fit: BoxFit.contain,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                      "Taches",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                    ),
+                    ),
+//============================================================================================
+                  Container(
+                        width:125,
+                        height: 130,
+                      child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                            SizedBox(height:10),
+                          Container(
+                           width:40,
+                              height: 40,
+                            child: Image.asset(
+                      "assets/images/bijoux.png",
+                      fit: BoxFit.contain,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                      "Invites",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                    ),
+                    ),
+                ],
+              ),
+              //================================================================ 2 eme ligne
+               Row(
                 children: [
                   Center(
                     child: Container(
@@ -104,7 +241,7 @@ class MariageContent extends StatelessWidget {
                           const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                      "Votre texte ici",
+                      "Favories",
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
@@ -118,6 +255,43 @@ class MariageContent extends StatelessWidget {
                     ),
                     ),
                   ),
+
+                  Container(
+                        width:125,
+                        height: 130,
+                      child: Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                            SizedBox(height:10),
+                          Container(
+                           width:40,
+                              height: 40,
+                            child: Image.asset(
+                      "assets/images/bijoux.png",
+                      fit: BoxFit.contain,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                      "Galerie",
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                      
+                    ),
+                    ),
                 ],
               ),
             ],
