@@ -77,12 +77,14 @@ class MariageContent extends StatelessWidget {
               ),
          SizedBox(height:10),
          Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
   children: [
-    SizedBox(width: 1),
+    SizedBox(width: 6),
     Icon(Icons.location_on, color: Colors.grey),
+    SizedBox(width: 8),
     Text('Bamako, Mali'),
-    SizedBox(width: 40),
+    SizedBox(width: 210),
     GestureDetector(
       onTap: () {
         // Action à effectuer lors du clic sur l'icône
@@ -103,7 +105,7 @@ class MariageContent extends StatelessWidget {
                   Center(
                     child: Container(
                         width:125,
-                        height: 130,
+                        height: 120,
                       child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -112,25 +114,23 @@ class MariageContent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                            SizedBox(height:10),
+                            SizedBox(height:6),
                           Container(
-                           width:40,
-                              height: 40,
+                           width:70,
+                              height: 70,
+                              padding: EdgeInsets.all(10.0),
                             child: Image.asset(
                       "assets/images/icons8-wallet-64.png",
                       fit: BoxFit.contain,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
+                          Text(
                       "Budget",
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
-                            ),
                           ),
                         ],
                       ),
@@ -141,7 +141,7 @@ class MariageContent extends StatelessWidget {
 
                   Container(
                         width:125,
-                        height: 130,
+                        height: 120,
                       child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -150,25 +150,22 @@ class MariageContent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                            SizedBox(height:10),
+                            SizedBox(height:6),
                           Container(
-                           width:40,
-                              height: 40,
+                           width:70,
+                              height: 70,
                             child: Image.asset(
-                      "assets/images/bijoux.png",
+                      "assets/images/tache3.png",
                       fit: BoxFit.contain,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
+                          Text(
                       "Taches",
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
-                            ),
                           ),
                         ],
                       ),
@@ -178,7 +175,7 @@ class MariageContent extends StatelessWidget {
 //============================================================================================
                   Container(
                         width:125,
-                        height: 130,
+                        height: 120,
                       child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -187,25 +184,22 @@ class MariageContent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                            SizedBox(height:10),
+                            SizedBox(height:6),
                           Container(
-                           width:40,
-                              height: 40,
+                           width:70,
+                              height: 70,
                             child: Image.asset(
-                      "assets/images/bijoux.png",
+                      "assets/images/invites.png",
                       fit: BoxFit.contain,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
+                          Text(
                       "Invites",
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
-                            ),
                           ),
                         ],
                       ),
@@ -220,7 +214,7 @@ class MariageContent extends StatelessWidget {
                   Center(
                     child: Container(
                         width:125,
-                        height: 130,
+                        height: 120,
                       child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -229,25 +223,22 @@ class MariageContent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                            SizedBox(height:10),
+                            SizedBox(height:6),
                           Container(
-                           width:40,
-                              height: 40,
+                           width:70,
+                              height: 70,
                             child: Image.asset(
-                      "assets/images/bijoux.png",
+                      "assets/images/favorite1.gif",
                       fit: BoxFit.contain,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
+                          const Text(
                       "Favories",
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
-                            ),
                           ),
                         ],
                       ),
@@ -258,7 +249,7 @@ class MariageContent extends StatelessWidget {
 
                   Container(
                         width:125,
-                        height: 130,
+                        height: 120,
                       child: Card(
                       elevation: 5,
                       shape: RoundedRectangleBorder(
@@ -267,25 +258,22 @@ class MariageContent extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                            SizedBox(height:10),
+                            SizedBox(height:6),
                           Container(
-                           width:40,
-                              height: 40,
+                           width:70,
+                              height: 70,
                             child: Image.asset(
-                      "assets/images/bijoux.png",
+                      "assets/images/galerie.png",
                       fit: BoxFit.contain,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
+                          const Text(
                       "Galerie",
                       style: TextStyle(
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                       ),
                       textAlign: TextAlign.center,
-                            ),
                           ),
                         ],
                       ),
