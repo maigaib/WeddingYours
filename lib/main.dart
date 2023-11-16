@@ -1,76 +1,99 @@
-import 'package:app_wedding_yours/pages/accueil.dart';
-//import 'package:app_wedding_yours/pages/connexion.dart';
-import 'package:app_wedding_yours/pages/home.dart';
-import 'package:flutter/material.dart';
 import 'package:app_wedding_yours/pages/invites.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
-import 'package:app_wedding_yours/pages/messages.dart';
 import 'package:app_wedding_yours/pages/prestataires.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:app_wedding_yours/pages/home.dart';
+import 'package:app_wedding_yours/pages/messages.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
 void main() {
   runApp(const MyApp());
 }
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key});
 
-class _MyAppState extends State<MyApp> {
-  int _currentIndex = 0;
-    setCurrentIndex(int index){
-      setState(() {
-        _currentIndex = index;
-      });
-    }
   @override
   Widget build(BuildContext context) {
+    PersistentTabController _controller;
+
+    _controller = PersistentTabController(initialIndex: 0);
+
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        // appBar: AppBar(
-        //   title: Text("Accueil"),
-        // ),
-        body: [
-          Home(),
-          Accueil(),
-          Messages(),
-          Mariages(),
-          Invites(),
-          Prestataires()
-        ][_currentIndex],
-        bottomNavigationBar:
-        // _currentIndex == 0
-         //   ? null
-         BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (index) => setCurrentIndex(index) ,
-            selectedItemColor: Color.fromRGBO(253, 139, 139, 1),
-            unselectedItemColor: Colors.grey,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Accueil' 
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.mail),
-                label: 'Message' 
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Mariage' 
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.list),
-                label: 'Invites' 
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'Prestataires' 
-              )
-            ]
-            ),
+      home: PersistentTabView(
+        context,
+        controller: _controller,
+        screens: _buildScreens(),
+        items: _navBarsItems(),
+        confineInSafeArea: true,
+        backgroundColor: Colors.white,
+        handleAndroidBackButtonPress: true,
+        resizeToAvoidBottomInset: true,
+        stateManagement: true,
+        hideNavigationBarWhenKeyboardShows: true,
+        decoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          colorBehindNavBar: Colors.white,
         ),
+        popAllScreensOnTapOfSelectedTab: true,
+        popActionScreens: PopActionScreensType.all,
+        itemAnimationProperties: ItemAnimationProperties(
+          duration: Duration(milliseconds: 200),
+          curve: Curves.ease,
+        ),
+        screenTransitionAnimation: ScreenTransitionAnimation(
+          animateTabTransition: true,
+          curve: Curves.ease,
+          duration: Duration(milliseconds: 200),
+        ),
+        navBarStyle: NavBarStyle.style6,
+      ),
     );
   }
+}
+
+List<Widget> _buildScreens() {
+  return [
+    Home(),
+    Messages(),
+    Mariages(),
+    Invites(),
+    Prestataires()
+  ];
+}
+
+List<PersistentBottomNavBarItem> _navBarsItems() {
+  return [
+    PersistentBottomNavBarItem(
+      icon: Icon(CupertinoIcons.home),
+      title: "Accueil",
+      activeColorPrimary: const Color.fromRGBO(253, 139, 139, 1),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(CupertinoIcons.mail),
+      title: "Messages",
+      activeColorPrimary: const Color.fromRGBO(253, 139, 139, 1),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(CupertinoIcons.heart_circle_fill),
+      title: "Mariages",
+      activeColorPrimary: const Color.fromRGBO(253, 139, 139, 1),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(CupertinoIcons.person_2),
+      title: "Invites",
+      activeColorPrimary: const Color.fromRGBO(253, 139, 139, 1),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+    PersistentBottomNavBarItem(
+      icon: Icon(CupertinoIcons.briefcase),
+      title: "Prestataires",
+      activeColorPrimary: const Color.fromRGBO(253, 139, 139, 1),
+      inactiveColorPrimary: CupertinoColors.systemGrey,
+    ),
+  ];
 }

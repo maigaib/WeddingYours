@@ -1,3 +1,4 @@
+import 'package:app_wedding_yours/pages/accueil.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:flutter/services.dart' show rootBundle;
@@ -143,34 +144,573 @@ class _HomeState extends State<Home> {
     ),
     
     Padding(
-      padding: const EdgeInsets.only(top:40, left: 55, ),
-      child: Positioned(
-        // bottom: 0,
-        // right: 0,
-        child: Container(
-          width: 234,
-          height: 140,
-          decoration: ShapeDecoration(
-            image: const DecorationImage(
-              image: AssetImage('assets/images/photo11.png'),
-              fit: BoxFit.fill,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
+  padding: const EdgeInsets.only(top: 40, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/photo11.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
             ),
           ),
-          
+        ],
+      ),
+    ),
+  ),
+),
+//=====================================================titre 2
+SizedBox(height: 10),
+const Positioned(
+      top: 200,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Decoration',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
         ),
       ),
     ),
-  ],
-)
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 230, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/deco1.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
 
-            ],
+//=====================================================titre 3
+const Positioned(
+      top: 400,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Robes',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
           ),
         ),
       ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 420, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/robbe 1.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+
+// //================================================= 4 
+ const Positioned(
+      top: 600,
+      left: 20,
+      child: SizedBox(
+        width: 120,
+        height: 25,
+        child: Text(
+          'Restauration',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 625, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/resto2.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+
+// //=====================================================titre 5
+const Positioned(
+      top: 800,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Beaute',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 820, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/makeup1.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+
+// //================================================= 6  
+const Positioned(
+      top: 1000,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Bijoux',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 1020, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/bijouxM.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+
+// //=====================================================titre 7
+const Positioned(
+      top: 1200,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Musique',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 1220, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/dj1 1.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+
+// //================================================= 8 
+const Positioned(
+      top: 1400,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Location',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 1420, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/location2.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+
+//=====================================================titre 9
+const Positioned(
+      top: 1600,
+      left: 20,
+      child: SizedBox(
+        width: 97,
+        height: 25,
+        child: Text(
+          'Hotels',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 1620, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/hotels.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
+      ),
+    ),
+  ),
+),
+ 
+ //================================================= 10   
+  const Positioned(
+      top: 1800,
+      left: 20,
+      child: SizedBox(
+        width: 127,
+        height: 25,
+        child: Text(
+          'Accessoires',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w600,
+            height: 0,
+          ),
+        ),
+      ),
+    ),
+SizedBox(height: 10),
+    
+    Padding(
+  padding: const EdgeInsets.only(top: 1820, left: 55),
+  child: Center(
+    child: Container(
+      width: 234,
+      height: 140,
+      decoration: ShapeDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/accessoires1.png'),
+          fit: BoxFit.fill,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 2,
+            right: 6,
+            child: InkWell(
+              onTap: () {
+                // Navigation vers une autre page ici
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Accueil()));
+              },
+            child: const Icon(
+              Icons.arrow_circle_right_outlined, // Remplacez par l'icône que vous souhaitez utiliser
+              color: Color.fromRGBO(172, 21, 21, 1),
+              size: 30.0,
+            ),
+          ),
+          )
+        ],
       )
+             ),
+             ),
+             )
+             ],
+          ),
+        ]
+        ),
+      ),
+      )
+    )
     );
   }
 }
