@@ -7,9 +7,12 @@ import 'package:app_wedding_yours/pages/home.dart';
 import 'package:app_wedding_yours/pages/messages.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+ await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 

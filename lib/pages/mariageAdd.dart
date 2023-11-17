@@ -1,6 +1,6 @@
-import 'dart:io';
 
 import 'package:app_wedding_yours/pages/mariages.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,6 +12,17 @@ class MariageAdd extends StatefulWidget {
 }
 
 class _MariageAddState extends State<MariageAdd> {
+  final _formkey = GlobalKey<FormState>();
+  final  monsieurNameController = TextEditingController();
+  final  madameNameController = TextEditingController();
+  final  lieuNameController = TextEditingController();
+  @override
+  void dispose(){
+    super.dispose();
+    monsieurNameController.dispose();
+    madameNameController.dispose();
+    lieuNameController.dispose();
+  }
   //========================= pour image upload =========================================
 final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picker
  String? imagePath; // Ajout de la variable pour le chemin de l'image
@@ -35,7 +46,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
       lastDate: DateTime(2101),
     ))!;
 
-    if (picked != null && picked != selectedDate) {
+    if (picked != selectedDate) {
       setState(() {
         selectedDate = picked;
       });
@@ -60,7 +71,8 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                     topRight: Radius.circular(40), // Coin supérieur droit
                   ),
                 ),
-    
+                child:Form(
+                   key: _formkey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -100,6 +112,13 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 labelText: 'Monsieur',
                                 hintText: 'Monsieur',
                               ),
+                              validator: (value){
+                                if(value == null || value.isEmpty){
+                                  return "Veillez complètez le champ";
+                                }
+                                return null;
+                              },
+                              controller: monsieurNameController,
                             ),
                           ),
                         ),
@@ -116,6 +135,13 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 labelText: 'Madame',
                                 hintText: 'Madame',
                               ),
+                              validator: (value){
+                                if(value == null || value.isEmpty){
+                                  return "Veillez complètez le champ";
+                                }
+                                return null;
+                              },
+                              controller: madameNameController,
                             ),
                           ),
                         ),
@@ -131,7 +157,6 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                       return null; // La validation a réussi
                                     },
                                     decoration: InputDecoration(
-                                      //labelText: 'Sélectionnez une date :',
                                       suffixIcon: Icon(Icons.calendar_today), // Ajoutez ici l'icône de calendrier
                                       border: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(8.0), // Ajoutez le rayon ici
@@ -162,25 +187,17 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 labelText: 'Lieu',
                                 hintText: 'Lieu',
                               ),
+                              validator: (value){
+                                if(value == null || value.isEmpty){
+                                  return "Veillez complètez le champ";
+                                }
+                                return null;
+                              },
+                              controller: lieuNameController,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: 300,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                labelText: 'Mot de passe',
-                                hintText: 'Mot de passe',
-                              ),
-                            ),
-                          ),
-                        ),
+                        
                          Container(
                           width: 300, // Largeur du bouton
                           height: 50,
@@ -228,9 +245,30 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 ),
                               ),
                             ),
-                            onPressed: () {
-                              // Ajoutez ici la logique de connexion
-                              // Vous pouvez naviguer vers la page d'accueil une fois la connexion réussie
+                            onPressed: () async {
+                              if(_formkey.currentState!.validate()){
+                                final monsieur = monsieurNameController.text;
+                                final madame = madameNameController.text;
+                                final lieu = lieuNameController.text;
+                                
+                              // Enregistrement des données dans Firestore
+                                await FirebaseFirestore.instance.collection('mariages').add({
+                                  'monsieur': monsieur,
+                                  'madame': madame,
+                                  'lieu': lieu,
+                                  'date': selectedDate != null ? selectedDate!.toLocal().toString() : null,
+                                  'photo': imagePath != null ? imagePath!.toString() : null,
+
+                                  // Ajoutez d'autres champs si nécessaire
+                                });
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text("Envoi en cours ..."))
+                                  );
+                                  FocusScope.of(context).requestFocus(FocusNode());
+
+                              }
+                              
                               Navigator.pop(
                                 context,
                                 MaterialPageRoute(builder: (context) => Mariages()),
@@ -250,7 +288,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                     ),
                   ),
               ),
-            
+            )
           ],
         ),
     ),
