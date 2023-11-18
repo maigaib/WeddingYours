@@ -1,5 +1,7 @@
 
+import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
+import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +15,8 @@ class MariageAdd extends StatefulWidget {
 
 class _MariageAddState extends State<MariageAdd> {
   final _formkey = GlobalKey<FormState>();
+  final MariagesRepository mariagesRepository = MariagesRepository(); // Assurez-vous d'utiliser le nom correct de votre classe
+
   final  monsieurNameController = TextEditingController();
   final  madameNameController = TextEditingController();
   final  lieuNameController = TextEditingController();
@@ -146,33 +150,44 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                           ),
                         ),
                         Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 300,
-                                child: TextFormField(
-                                    validator: (value) {
-                                      if (selectedDate == null) {
-                                        return 'Veuillez sélectionner une date';
-                                      }
-                                      return null; // La validation a réussi
-                                    },
-                                    decoration: InputDecoration(
-                                      suffixIcon: Icon(Icons.calendar_today), // Ajoutez ici l'icône de calendrier
-                                      border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(8.0), // Ajoutez le rayon ici
-                                            ),
-                                    ),
-                                    onTap: () => _selectDate(context),
-                                    readOnly: true,
-                                    controller: TextEditingController(
-                                      text: selectedDate != null
-                                          ? '${selectedDate!.toLocal()}'.split(' ')[0]
-                                          : 'Sélectionnez une date',
-                                    ),
-                                  ),
-
-                              ),
-                            ),
+  padding: const EdgeInsets.all(8.0),
+  child: Container(
+    width: 300,
+    child: TextFormField(
+      validator: (value) {
+        if (selectedDate == null) {
+          return 'Veuillez sélectionner une date';
+        }
+        return null; // La validation a réussi
+      },
+      decoration: InputDecoration(
+        suffixIcon: const Icon(
+          Icons.calendar_today,
+          color: Color(0xFFFC8B8B),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
+            color: Color(0xFFFC8B8B),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+          borderSide: const BorderSide(
+            color: Colors.grey, // Changer la couleur de la bordure lorsque le champ est désactivé
+          ),
+        ),
+      ),
+      onTap: () => _selectDate(context),
+      readOnly: true,
+      controller: TextEditingController(
+        text: selectedDate != null
+            ? '${selectedDate!.toLocal()}'.split(' ')[0]
+            : 'Sélectionnez une date',
+      ),
+    ),
+  ),
+),
 
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -251,24 +266,25 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 final madame = madameNameController.text;
                                 final lieu = lieuNameController.text;
                                 
-                              // Enregistrement des données dans Firestore
-                                await FirebaseFirestore.instance.collection('mariages').add({
-                                  'monsieur': monsieur,
-                                  'madame': madame,
-                                  'lieu': lieu,
-                                  'date': selectedDate != null ? selectedDate!.toLocal().toString() : null,
-                                  'photo': imagePath != null ? imagePath!.toString() : null,
-
+                              final mariage = Mariage(
+                                  mariageId: 0,
+                                  monsieur: monsieur,
+                                  madame: madame,
+                                  lieu: lieu,
+                                  date: selectedDate ?? DateTime.now(),
+                                  photo: imagePath  ?? "assets/images/alliance main 1.png",
+                                  utilisateursId: 1,
+                                  //utilisateursId: user.uid,
                                   // Ajoutez d'autres champs si nécessaire
-                                });
-
+                                );
+                                // Appel de la méthode d'ajout
+                                  await mariagesRepository.addMariage(mariage);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(content: Text("Envoi en cours ..."))
                                   );
                                   FocusScope.of(context).requestFocus(FocusNode());
 
                               }
-                              
                               Navigator.pop(
                                 context,
                                 MaterialPageRoute(builder: (context) => Mariages()),
@@ -283,7 +299,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                             ),
                           ),
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 65),
                       ],
                     ),
                   ),
