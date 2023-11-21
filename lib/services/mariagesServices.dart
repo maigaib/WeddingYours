@@ -1,5 +1,4 @@
 
-
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
 
@@ -14,15 +13,19 @@ class MariagesService {
     await _repository.updateMariage(mariage);
   }
 
-  Future<void> deleteMariage(int mariageId) async {
+  Future<void> deleteMariage(String mariageId) async {
     await _repository.deleteMariage(mariageId);
   }
 
-  Future<List<Mariage>> getMariages() async {
-    return await _repository.getMariages();
-  }
+  // Future<List<Mariage>> getMariages() async {
+  //   return await _repository.getMariages();
+  // }
 
-  Future<Mariage> getMariageById(int mariageId) async {
+  // Future<Mariage> getMariageById(String mariageId) async {
+  //   return await _repository.getMariageById(mariageId);
+  // }
+
+  Future<Mariage> getMariageById(String mariageId) async {
     return await _repository.getMariageById(mariageId);
   }
 }

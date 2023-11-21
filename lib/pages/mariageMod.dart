@@ -1,22 +1,22 @@
-
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
-import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-
-class MariageAdd extends StatefulWidget {
-  const MariageAdd({Key? key}) : super(key: key);
+import 'package:app_wedding_yours/services/mariagesServices.dart';
+class MariageMod extends StatefulWidget {
+  final MariagesService mariagesServices;
+  final Mariage mariageDetails;
+  MariageMod({Key? key, required this.mariageDetails, required this.mariagesServices}) : super(key: key);
 
   @override
-  _MariageAddState createState() => _MariageAddState();
+  State<MariageMod> createState() => _MariageModState();
 }
 
-class _MariageAddState extends State<MariageAdd> {
+class _MariageModState extends State<MariageMod> {
   final _formkey = GlobalKey<FormState>();
-  final MariagesRepository mariagesRepository = MariagesRepository(); // Assurez-vous d'utiliser le nom correct de votre classe
+  //final MariagesRepository mariagesRepository = MariagesRepository(); // Assurez-vous d'utiliser le nom correct de votre classe
 
   final  monsieurNameController = TextEditingController();
   final  madameNameController = TextEditingController();
@@ -59,6 +59,18 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
   }
   @override
   Widget build(BuildContext context) {
+    monsieurNameController.text = widget.mariageDetails.monsieur;
+    madameNameController.text = widget.mariageDetails.madame;
+    lieuNameController.text = widget.mariageDetails.lieu;
+    // Initialiser la date si elle est disponible
+  //if (widget.mariageDetails.date != null) {
+    selectedDate = widget.mariageDetails.date;
+ // }
+
+  // Initialiser l'image si elle est disponible
+ // if (widget.mariageDetails.photo != null) {
+    imagePath = widget.mariageDetails.photo;
+  //}
     return Scaffold(
       body: Center(
         child: Column(
@@ -92,10 +104,11 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                             ),
                           ),
                           child: Center(
-                            child:Text('Nouveau Mariage',
+                            child:Text('Modification Mariage',
                             style: GoogleFonts.inter(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                             ),
                           ) 
@@ -260,45 +273,26 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                             ),
                           ),
                           onPressed: () async {
-                            if(_formkey.currentState!.validate()){
-                              final monsieur = monsieurNameController.text;
-                              final madame = madameNameController.text;
-                              final lieu = lieuNameController.text;
-                              
-                            final mariage = Mariage(
-                                mariageId: '',
-                                monsieur: monsieur,
-                                madame: madame,
-                                lieu: lieu,
-                                date: selectedDate ?? DateTime.now(),
-                                photo: imagePath  ?? "assets/images/alliance main 1.png",
-                                utilisateursId: 1,
-                                //utilisateursId: user.uid,
-                              );
-                              // Ajoutez le mariage à Firestore
-                              // final DocumentReference docRef = await FirebaseFirestore.instance.collection('mariages').add(mariage.toMap());
+                              // Mettre à jour les propriétés du mariage avec les nouvelles valeurs
+                              widget.mariageDetails.monsieur = monsieurNameController.text;
+                              widget.mariageDetails.madame = madameNameController.text;
+                              widget.mariageDetails.lieu = lieuNameController.text;
+                              widget.mariageDetails.date = selectedDate!;
+                              widget.mariageDetails.photo = imagePath!;
 
-                              // // Récupérez l'ID généré automatiquement
-                              // final String mariageId = docRef.id;
-                              //         mariage.mariageId = mariageId;
-
-                              mariage.create();
-
-                              // Appel de la méthode d'ajout
-                                //await mariagesRepository.addMariage(mariage);
-                              ScaffoldMessenger.of(context).showSnackBar(
+                              // Appeler la méthode de modification dans le service
+                              await widget.mariagesServices.updateMariage(widget.mariageDetails);
+                                ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Envoi en cours ..."))
                                 );
                                 FocusScope.of(context).requestFocus(FocusNode());
-
-                            }
                             Navigator.pop(
                               context,
                               MaterialPageRoute(builder: (context) => Mariages()),
                             );
                           },
                           child: Text(
-                            'Ajouter',
+                            'Valider',
                             style: GoogleFonts.inter(
                               fontSize: 24,
                               fontWeight: FontWeight.w600,

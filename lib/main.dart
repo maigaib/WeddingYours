@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
     _controller = PersistentTabController(initialIndex: 0);
 
     return MaterialApp(
+       debugShowCheckedModeBanner: false,
       home: PersistentTabView(
         context,
         controller: _controller,

@@ -10,7 +10,7 @@ class MariagesController extends ChangeNotifier {
   List<Mariage> get mariages => _mariages;
 
   Mariage _currentMariage = Mariage(
-    mariageId: 0,
+    mariageId: '',
     monsieur: '',
     madame: '',
     lieu: '',
@@ -25,28 +25,28 @@ class MariagesController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addMariage(Mariage mariage) async {
-    await _service.addMariage(mariage);
-    await getMariages();
-  }
+  // Future<void> addMariage(Mariage mariage) async {
+  //   await _service.addMariage(mariage);
+  //   await getMariages();
+  // }
 
-  Future<void> updateMariage(Mariage mariage) async {
-    await _service.updateMariage(mariage);
-    await getMariages();
-  }
+  // Future<void> updateMariage(Mariage mariage) async {
+  //   await _service.updateMariage(mariage);
+  //   await getMariages();
+  // }
 
-  Future<void> deleteMariage(int mariageId) async {
-    await _service.deleteMariage(mariageId);
-    await getMariages();
-  }
+  // Future<void> deleteMariage(String mariageId) async {
+  //   await _service.deleteMariage(mariageId);
+  //   await getMariages();
+  // }
 
-  Future<void> getMariages() async {
-    _mariages = await _service.getMariages();
-    notifyListeners();
-  }
+  // Future<void> getMariages() async {
+  //   _mariages = await _service.getMariages();
+  //   notifyListeners();
+  // }
 
-  Future<void> getMariageById(int mariageId) async {
-    _currentMariage = await _service.getMariageById(mariageId);
-    notifyListeners();
-  }
+  // Future<void> getMariageById(String mariageId) async {
+  //   _currentMariage = await _service.getMariageById(mariageId);
+  //   notifyListeners();
+  // }
 }
