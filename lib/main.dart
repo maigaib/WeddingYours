@@ -78,7 +78,7 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
       inactiveColorPrimary: CupertinoColors.systemGrey,
     ),
     PersistentBottomNavBarItem(
-      icon: Icon(CupertinoIcons.mail),
+      icon: Icon(CupertinoIcons.chat_bubble_2),
       title: "Messages",
       activeColorPrimary: const Color.fromRGBO(253, 139, 139, 1),
       inactiveColorPrimary: CupertinoColors.systemGrey,

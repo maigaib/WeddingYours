@@ -202,7 +202,7 @@ class MariageContent extends StatelessWidget {
       // Action à effectuer lors du clic sur le Card
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Taches()), // Remplacez "NouvellePage" par le widget de votre nouvelle page
+        MaterialPageRoute(builder: (context) => Taches(mariageId: mariageDetails.mariageId ?? '')), // Remplacez "NouvellePage" par le widget de votre nouvelle page
       );
     },
     child : Card(
@@ -222,7 +222,7 @@ class MariageContent extends StatelessWidget {
                       fit: BoxFit.contain,
                             ),
                           ),
-                          Text(
+                          const Text(
                       "Taches",
                       style: TextStyle(
                         fontSize: 16.0,

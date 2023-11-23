@@ -1,8 +1,8 @@
 
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
-import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +16,7 @@ class MariageAdd extends StatefulWidget {
 
 class _MariageAddState extends State<MariageAdd> {
   final _formkey = GlobalKey<FormState>();
-  final MariagesRepository mariagesRepository = MariagesRepository(); // Assurez-vous d'utiliser le nom correct de votre classe
+ // final MariagesRepository mariagesRepository = MariagesRepository(); // Assurez-vous d'utiliser le nom correct de votre classe
 
   final  monsieurNameController = TextEditingController();
   final  madameNameController = TextEditingController();
@@ -275,12 +275,6 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 utilisateursId: 1,
                                 //utilisateursId: user.uid,
                               );
-                              // Ajoutez le mariage à Firestore
-                              // final DocumentReference docRef = await FirebaseFirestore.instance.collection('mariages').add(mariage.toMap());
-
-                              // // Récupérez l'ID généré automatiquement
-                              // final String mariageId = docRef.id;
-                              //         mariage.mariageId = mariageId;
 
                               mariage.create();
 

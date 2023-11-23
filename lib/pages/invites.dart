@@ -257,6 +257,9 @@ class _InvitesState extends State<Invites> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                               focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:  Color(0xFFFC8B8B)), // Couleur de la bordure lorsque le champ est en focus
+                                borderRadius: BorderRadius.circular(8),),
                               labelText: 'Prenom',
                               hintText: 'Prenom',
                             ),
@@ -280,6 +283,9 @@ class _InvitesState extends State<Invites> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                               focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:  Color(0xFFFC8B8B)), // Couleur de la bordure lorsque le champ est en focus
+                                borderRadius: BorderRadius.circular(8),),
                               labelText: 'Telephone',
                               hintText: 'Telephone',
                             ),
@@ -302,6 +308,9 @@ class _InvitesState extends State<Invites> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                               focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color:  Color(0xFFFC8B8B)), // Couleur de la bordure lorsque le champ est en focus
+                                borderRadius: BorderRadius.circular(8),),
                               labelText: 'Email',
                               hintText: 'Email',
                             ),

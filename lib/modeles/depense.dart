@@ -1,23 +1,35 @@
 // Table depenses
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Depense {
-  int depenseId;
-  String libelle;
+  String? depenseId;
+  String description;
   double depenseMontant;
-  int budgetId;
+  String budgetId;
 
   Depense({
     required this.depenseId,
-    required this.libelle,
+    required this.description,
     required this.depenseMontant,
     required this.budgetId,
   });
 
-  factory Depense.fromMap(Map<String, dynamic> map) {
+  factory Depense.fromMap(Map<String, dynamic> map, DocumentReference docRef) {
     return Depense(
-      depenseId: map['depenseId'],
-      libelle: map['libelle'],
+      depenseId: docRef.id,
+      description: map['description'],
       depenseMontant: map['depenseMontant'],
       budgetId: map['budgetId'],
     );
+  }
+
+  Map<String, dynamic> toMap() {
+
+    return{
+      'description' : description,
+      'depensesMontant' : depenseMontant,
+      'budgetId' : budgetId
+    };
+
   }
 }
