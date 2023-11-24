@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:app_wedding_yours/modeles/budget.dart';
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/pages/budgetPage.dart';
 import 'package:app_wedding_yours/pages/favories.dart';
@@ -7,6 +8,7 @@ import 'package:app_wedding_yours/pages/galeries.dart';
 import 'package:app_wedding_yours/pages/invites.dart';
 import 'package:app_wedding_yours/pages/mariageMod.dart';
 import 'package:app_wedding_yours/pages/taches.dart';
+import 'package:app_wedding_yours/services/budgetService.dart';
 import 'package:app_wedding_yours/services/mariagesServices.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -159,13 +161,34 @@ class MariageContent extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: GestureDetector(
-    onTap: () {
-      // Action à effectuer lors du clic sur le Card
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => BudgetPage()), // Remplacez "NouvellePage" par le widget de votre nouvelle page
-      );
-    },
+                      onTap: () async {
+                      // Vérifier si le mariage a déjà un budget
+                      final existingBudget = await BudgetService().getBudgetByMariageId(mariageDetails.mariageId ?? '');
+
+                      if (existingBudget != null) {
+                        // Un budget existe déjà pour ce mariage, vous ne faites rien ici
+                        print('Un budget existe déjà pour ce mariage.');
+                         Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: existingBudget)),
+                        );
+                      } else {
+                        // Aucun budget existant, vous pouvez créer un nouveau budget
+                        final newBudget = Budget(
+                          budgetId: '',
+                          budgetMontant: 00,
+                          mariageId: mariageDetails.mariageId ?? '',
+                        );
+                        await newBudget.createBudget(mariageDetails.mariageId ?? '');
+
+                        // Naviguer vers la page BudgetPage avec le nouveauBudget
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: newBudget)),
+                        );
+                      }
+                    },
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [

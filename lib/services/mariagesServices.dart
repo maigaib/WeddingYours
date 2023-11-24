@@ -7,6 +7,7 @@ class MariagesService {
 
   Future<void> addMariage(Mariage mariage) async {
     await _repository.addMariage(mariage);
+    
   }
 
   Future<void> updateMariage(Mariage mariage) async {

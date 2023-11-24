@@ -4,13 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Depense {
   String? depenseId;
   String description;
-  double depenseMontant;
+  int depensesMontant;
   String budgetId;
 
   Depense({
     required this.depenseId,
     required this.description,
-    required this.depenseMontant,
+    required this.depensesMontant,
     required this.budgetId,
   });
 
@@ -18,7 +18,7 @@ class Depense {
     return Depense(
       depenseId: docRef.id,
       description: map['description'],
-      depenseMontant: map['depenseMontant'],
+      depensesMontant: map['depensesMontant'],
       budgetId: map['budgetId'],
     );
   }
@@ -27,7 +27,7 @@ class Depense {
 
     return{
       'description' : description,
-      'depensesMontant' : depenseMontant,
+      'depensesMontant' : depensesMontant,
       'budgetId' : budgetId
     };
 

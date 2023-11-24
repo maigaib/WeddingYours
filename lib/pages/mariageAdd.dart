@@ -1,6 +1,8 @@
 
+import 'package:app_wedding_yours/modeles/budget.dart';
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
+import 'package:app_wedding_yours/services/budgetService.dart';
 //import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +68,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
           children: <Widget>[
             const SizedBox(height: 60),
             Image.asset("assets/images/LogoV.png"),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
 
             Card(
               shape: const RoundedRectangleBorder(
@@ -94,13 +96,14 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                           child: Center(
                             child:Text('Nouveau Mariage',
                             style: GoogleFonts.inter(
-                            fontSize: 24,
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                             ),
                           ) 
                         ),
-                            const SizedBox(height: 50),
+                            const SizedBox(height: 30),
 
                         Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -277,9 +280,8 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                               );
 
                               mariage.create();
-
-                              // Appel de la méthode d'ajout
-                                //await mariagesRepository.addMariage(mariage);
+                              
+                               
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Envoi en cours ..."))
                                 );
