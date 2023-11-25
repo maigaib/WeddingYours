@@ -320,11 +320,12 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                             style: GoogleFonts.inter(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 69),
+                      const SizedBox(height: 60),
                     ],
                   ),
                 ),

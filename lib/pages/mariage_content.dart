@@ -336,6 +336,7 @@ class MariageContent extends StatelessWidget {
                         },
                       
                      child: Card(
+                      //color: Colors.white,
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -348,7 +349,7 @@ class MariageContent extends StatelessWidget {
                            width:70,
                               height: 70,
                             child: Image.asset(
-                      "assets/images/favorite1.gif",
+                      "assets/images/icons8-coeurs-48.png",
                       fit: BoxFit.contain,
                             ),
                           ),
@@ -382,6 +383,7 @@ class MariageContent extends StatelessWidget {
                       
                      child: Card(
                       elevation: 5,
+                      //color: Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),

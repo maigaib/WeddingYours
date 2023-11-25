@@ -145,6 +145,7 @@ Future<void> fetchTasksList() async {
         width: 350,
         child: Card(
           elevation: 5,
+          color: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
@@ -209,7 +210,7 @@ Future<void> fetchTasksList() async {
                   ),
                 ],
               ),
-              SizedBox(height: 6),
+              SizedBox(height: 4),
               Row(
                 children: [
                   Container(
@@ -452,6 +453,7 @@ Future<void> fetchTasksList() async {
                           style: GoogleFonts.inter(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -691,6 +693,7 @@ Future<void> fetchTasksList() async {
                           style: GoogleFonts.inter(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
+                            color: Colors.white,
                           ),
                         ),
                       ),

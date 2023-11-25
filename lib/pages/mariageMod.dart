@@ -78,7 +78,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
           children: <Widget>[
             const SizedBox(height: 60),
             Image.asset("assets/images/LogoV.png"),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
 
             Card(
               shape: const RoundedRectangleBorder(
@@ -106,14 +106,14 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                           child: Center(
                             child:Text('Modification Mariage',
                             style: GoogleFonts.inter(
-                            fontSize: 24,
+                            fontSize: 18,
                             fontWeight: FontWeight.w600,
                             color: Colors.white,
                           ),
                             ),
                           ) 
                         ),
-                            const SizedBox(height: 50),
+                            const SizedBox(height: 30),
 
                         Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -228,7 +228,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                        Container(
                         width: 300, // Largeur du bouton
                         height: 50,
-                        margin: const EdgeInsets.only(top: 10, bottom: 10), // Marge supérieure
+                        margin: const EdgeInsets.only(top: 8, bottom: 10), // Marge supérieure
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -256,7 +256,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                         ),
                       ),
 
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 6),
                       Container(
                         width: 300, // Largeur du bouton
                         height: 50,
@@ -294,13 +294,14 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                           child: Text(
                             'Valider',
                             style: GoogleFonts.inter(
-                              fontSize: 24,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 69),
+                      const SizedBox(height: 60),
                     ],
                   ),
                 ),
