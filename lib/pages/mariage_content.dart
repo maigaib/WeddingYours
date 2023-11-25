@@ -375,10 +375,10 @@ class MariageContent extends StatelessWidget {
                       child: GestureDetector(
                           onTap: () {
                             // Action à effectuer lors du clic sur le Card
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(builder: (context) => Galeries(mariageId: mariageDetails.mariageId ?? '')), 
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Galeries(mariageId: mariageDetails.mariageId ?? '')), 
+                            );
                           },
                       
                      child: Card(
