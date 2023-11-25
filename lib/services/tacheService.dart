@@ -34,6 +34,7 @@ class TacheService {
   Future<void> delete(String tacheId) async {
   try {
     await FirebaseFirestore.instance.collection('taches').doc(tacheId).delete();
+    print('Supprimer avec succes');
   } catch (e) {
     print('Erreur lors de la suppression de la tâche: $e');
   }

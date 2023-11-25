@@ -18,46 +18,19 @@ class BudgetPage extends StatefulWidget {
 }
 
 class _BudgetPageState extends State<BudgetPage> {
-  StreamController<List<Depense>> _depensesController =
-      StreamController<List<Depense>>.broadcast();
   final _formkey = GlobalKey<FormState>();
   late DepenseService depenseService;
 
+  @override
   void initState() {
     super.initState();
     depenseService = DepenseService();
-    fetchDepensesList();
-    depenseService.depensesStream.listen((List<Depense> depenses) {
-      print('Liste de dépenses mise à jour: $depenses');
-    });
+    depenseService.fetchDepensesList(); // Appeler pour initialiser la liste au début
   }
-
-  List<Depense> depenses = [];
   final descriptionController = TextEditingController();
   final depensesMontantController = TextEditingController();
 
-  @override
-  void dispose() {
-    super.dispose();
-    depensesMontantController.dispose();
-    descriptionController.dispose();
-  }
-
-  Future<void> fetchDepensesList() async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> depenseSnapshot =
-          await FirebaseFirestore.instance.collection('depenses').get();
-
-      List<Depense> depensesList = depenseSnapshot.docs.map((doc) {
-        return Depense.fromMap(doc.data() as Map<String, dynamic>, doc.reference);
-      }).toList();
-
-      _depensesController.add(depensesList);
-    } catch (e) {
-      print('Erreur lors de la récupération des dépenses: $e');
-      _depensesController.addError(e);
-    }
-  }
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +138,7 @@ class _BudgetPageState extends State<BudgetPage> {
           ),
 
           FutureBuilder<List<Depense>>(
-            future: depenseService.getDepenses(),
+            future: depenseService.depensesStream.first,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -315,8 +288,7 @@ class _BudgetPageState extends State<BudgetPage> {
                                         budgetId: budget.budgetId ?? '',
                                       );
 
-                                      depenseService.create(dd);
-                                      fetchDepensesList();
+                                      depenseService.createDepense(dd);
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(content: Text("Envoi en cours ...")),
                                       );
@@ -373,5 +345,12 @@ class _BudgetPageState extends State<BudgetPage> {
         ],
       ),
     );
+  }
+  @override
+  void dispose() {
+    depenseService.dispose(); // Fermer le StreamController lorsque le widget est détruit
+    super.dispose();
+    depensesMontantController.dispose();
+    descriptionController.dispose();
   }
 }

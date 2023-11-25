@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class MariagesService {
   final MariagesRepository _repository = MariagesRepository();
@@ -29,4 +32,17 @@ class MariagesService {
   Future<Mariage> getMariageById(String mariageId) async {
     return await _repository.getMariageById(mariageId);
   }
+
+  Future<Map<String, String>> uploadWeddingImage(File image) async {
+     final ref = FirebaseStorage.instance
+       .ref()
+       .child('wedding_images')
+       .child('${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}');
+          await ref.putFile(image);
+          final url = await ref.getDownloadURL();
+            return {
+               'downloadUrl': url,
+               'path': ref.fullPath,
+         };
+      }
 }

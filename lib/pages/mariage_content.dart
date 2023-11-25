@@ -11,8 +11,10 @@ import 'package:app_wedding_yours/pages/taches.dart';
 import 'package:app_wedding_yours/services/budgetService.dart';
 import 'package:app_wedding_yours/services/mariagesServices.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'dart:core';
+import 'package:app_wedding_yours/pages/fonctions.dart';
 //import 'package:app_wedding_yours/controllers/mariagesController.dart';
 class MariageContent extends StatelessWidget {
   final String mariageId;
@@ -90,11 +92,12 @@ class MariageContent extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                     '${mariageDetails.monsieur} & ${mariageDetails.madame}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                     capitalize(mariageDetails.monsieur) +' & '+ capitalize(mariageDetails.madame),
+                      style: GoogleFonts.inter(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white
+                            ),
                     ),
                     SizedBox(height:20),
                     Text(
@@ -102,6 +105,8 @@ class MariageContent extends StatelessWidget {
                       style: TextStyle(
                         color: Color.fromRGBO(253, 139, 139, 1),
                         fontSize: 18,
+                        fontWeight: FontWeight.w600,
+
                       ),
                     ),
                     SizedBox(height:20),
@@ -111,6 +116,8 @@ class MariageContent extends StatelessWidget {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
+                        fontWeight: FontWeight.w600,
+
                       ),
                     ),
             ],
@@ -127,8 +134,16 @@ class MariageContent extends StatelessWidget {
   children: [
     SizedBox(width: 6),
     Icon(Icons.location_on, color: Colors.grey),
-    SizedBox(width: 8),
-    Text(mariageDetails.lieu),
+    SizedBox(width: 15),
+    Container( width: 100, child:  Baseline(
+                baseline: 20.0, // Ajustez la valeur en fonction de vos besoins
+                baselineType: TextBaseline.alphabetic,
+                child:Text( capitalize(mariageDetails.lieu),
+                  style: GoogleFonts.inter(
+                              fontSize: 18,
+                          
+                              fontWeight: FontWeight.w500,
+                            ),))),
     SizedBox(width: 210),
     GestureDetector(
       onTap: () {
@@ -359,10 +374,10 @@ class MariageContent extends StatelessWidget {
                       child: GestureDetector(
                           onTap: () {
                             // Action à effectuer lors du clic sur le Card
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Galeries()), // Remplacez "NouvellePage" par le widget de votre nouvelle page
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(builder: (context) => Galeries(mariageId: mariageDetails.mariageId ?? '')), 
+                            // );
                           },
                       
                      child: Card(

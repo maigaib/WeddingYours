@@ -475,15 +475,36 @@ Future<void> fetchTasksList() async {
                   setState(() {
                     selectedTask = tasksList[indexTache];
                   });
-                    Navigator.of(context).restorablePush((context, arguments) => _dialogBuilder(
-                    context,
-                    arguments,
-                    tacheService,  // Passez tacheService en tant qu'argument
-                    selectedTask,  // Passez selectedTask en tant qu'argument
-                    fetchTasksList,
-                  ));
+                    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmation'),
+          content: Text('Voulez-vous vraiment supprimer cet élément ?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Ferme la boîte de dialogue
+              },
+              child: Text('Non'),
+            ),
+            TextButton(
+              onPressed: () {
+                tacheService.delete(selectedTask!.tacheId ?? '');
+                fetchTasksList();
+                Navigator.of(context).pop(); // Ferme la boîte de dialogue après la suppression
+              },
+              child: Text('Oui', 
+                  style: TextStyle(
+                        color: Colors.red,
+                      ),
+                  ),
+            ),
+          ],
+        );
                 },
-              ),
+              );
+                })
             ],
           ),
         ),

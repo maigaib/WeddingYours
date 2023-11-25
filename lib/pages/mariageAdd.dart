@@ -1,10 +1,9 @@
 
-import 'package:app_wedding_yours/modeles/budget.dart';
+import 'dart:io';
+
 import 'package:app_wedding_yours/modeles/mariage.dart';
 import 'package:app_wedding_yours/pages/mariages.dart';
-import 'package:app_wedding_yours/services/budgetService.dart';
-//import 'package:app_wedding_yours/repositories/mariagesRepository.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,8 +17,7 @@ class MariageAdd extends StatefulWidget {
 
 class _MariageAddState extends State<MariageAdd> {
   final _formkey = GlobalKey<FormState>();
- // final MariagesRepository mariagesRepository = MariagesRepository(); // Assurez-vous d'utiliser le nom correct de votre classe
-
+ 
   final  monsieurNameController = TextEditingController();
   final  madameNameController = TextEditingController();
   final  lieuNameController = TextEditingController();
@@ -42,6 +40,23 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
       });
     }
   }
+
+  Future<Map<String, String>> uploadWeddingImage(File image) async {
+  final ref = FirebaseStorage.instance
+      .ref()
+      .child('wedding_images')
+      .child('${DateTime.now().millisecondsSinceEpoch}_${image.path.split('/').last}');
+
+  await ref.putFile(image);
+
+  final url = await ref.getDownloadURL();
+
+  return {
+    'downloadUrl': url,
+    'path': ref.fullPath,
+  };
+}
+
 //================================ for date ====================================
  DateTime? selectedDate;
 
@@ -263,6 +278,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                             ),
                           ),
                           onPressed: () async {
+
                             if(_formkey.currentState!.validate()){
                               final monsieur = monsieurNameController.text;
                               final madame = madameNameController.text;
@@ -274,11 +290,17 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                                 madame: madame,
                                 lieu: lieu,
                                 date: selectedDate ?? DateTime.now(),
-                                photo: imagePath  ?? "assets/images/alliance main 1.png",
+                                //photo: imagePath  ?? "assets/images/alliance main 1.png",
+                                photo: '',
                                 utilisateursId: 1,
                                 //utilisateursId: user.uid,
                               );
 
+                                 // Utiliser la fonction d'upload d'image ici
+                             final imageInfo = await uploadWeddingImage(File(imagePath!));
+
+                              // pour enregistrer l'image dans le mariage
+                              mariage.photo = imageInfo['downloadUrl']!;
                               mariage.create();
                               
                                
@@ -296,7 +318,7 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                           child: Text(
                             'Ajouter',
                             style: GoogleFonts.inter(
-                              fontSize: 24,
+                              fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
