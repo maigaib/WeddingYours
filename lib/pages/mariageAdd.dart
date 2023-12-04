@@ -303,7 +303,6 @@ final ImagePicker _picker = ImagePicker(); // Ajout de la déclaration de _picke
                               mariage.photo = imageInfo['downloadUrl']!;
                               mariage.create();
                               
-                               
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(content: Text("Envoi en cours ..."))
                                 );

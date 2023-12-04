@@ -1,9 +1,9 @@
 class Produit {
-  int produitId;
+  String produitId;
   String nom;
   String image;
   double prix;
-  int prestataireId;
+  String prestataireId;
 
   Produit({
     required this.produitId,
