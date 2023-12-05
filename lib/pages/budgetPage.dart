@@ -1,8 +1,8 @@
-import 'dart:async';
+
 import 'package:app_wedding_yours/modeles/budget.dart';
 import 'package:app_wedding_yours/modeles/depense.dart';
+import 'package:app_wedding_yours/services/budgetService.dart';
 import 'package:app_wedding_yours/services/depenseService.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,8 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class BudgetPage extends StatefulWidget {
   final Budget nouveauBudget;
+  final mariageId;
 
-  BudgetPage({Key? key, required this.nouveauBudget}) : super(key: key);
+  BudgetPage({Key? key, required this.nouveauBudget, required this.mariageId})
+      : super(key: key);
 
   @override
   State<BudgetPage> createState() => _BudgetPageState();
@@ -20,17 +22,25 @@ class BudgetPage extends StatefulWidget {
 class _BudgetPageState extends State<BudgetPage> {
   final _formkey = GlobalKey<FormState>();
   late DepenseService depenseService;
-
+late BudgetService budgetService;
   @override
   void initState() {
     super.initState();
     depenseService = DepenseService();
+    budgetService = BudgetService();
     depenseService.fetchDepensesList(); // Appeler pour initialiser la liste au début
   }
   final descriptionController = TextEditingController();
   final depensesMontantController = TextEditingController();
-
- 
+  final budgetMontantController = TextEditingController();
+//============================================================
+ int calculateTotalExpenses(List<Depense> expenses) {
+  int total = 0;
+  for (var expense in expenses) {
+    total += expense.depensesMontant;
+  }
+  return total;
+}
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +86,9 @@ class _BudgetPageState extends State<BudgetPage> {
                           ),
                         ),
                         Text('MONTANT ESTIMÉ'),
-                        SizedBox(height: 2,),
+                        //SizedBox(height: 2,),
                         Text(
-                          '${budget.budgetMontant}',
+                          '${budget.budgetMontant} FCFA',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -88,7 +98,47 @@ class _BudgetPageState extends State<BudgetPage> {
 
                         GestureDetector(
                           onTap: () {
-                            print('Texte cliqué !');
+                            depenseService.fetchDepensesList();
+                             showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Modification'),
+          content: TextField (
+            controller: budgetMontantController,
+            decoration: InputDecoration(labelText: 'Montant'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+              // final mariageId = mariageId;
+                 final montant = budgetMontantController.text;
+
+                            // instance de Tache avec les modifications
+                            final nouveauBudget = Budget(
+                              budgetId: budget.budgetId,// Use the correct field name
+                              budgetMontant: int.parse(montant),
+                              mariageId: widget.mariageId
+                                        );
+                                        budgetService.update(nouveauBudget);
+               // Ferme la boîte de dialogue après la suppression
+                setState(() {
+                        widget.nouveauBudget.budgetMontant = int.parse(montant);
+                      });
+                      depenseService.fetchDepensesList();
+               FocusScope.of(context).requestFocus(FocusNode());
+               Navigator.of(context).pop();
+              },
+              child: Text('Valider', 
+                  style: TextStyle(
+                        color: Colors.pinkAccent,
+                      ),
+                  ),
+            ),
+          ],
+        );
+                },
+              );
                           },
                           child: Text(
                             'Modifier',
@@ -122,14 +172,30 @@ class _BudgetPageState extends State<BudgetPage> {
                         ),
                         Text('COUT FINAL'),
                         SizedBox(height: 5,),
-                        const Text(
-                          '13000000',
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                      ],
+                        FutureBuilder<List<Depense>>(
+        future: depenseService.depensesStream.first,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Text('Aucune dépense trouvée.');
+          } else {
+            List<Depense> expenses = snapshot.data!;
+            int totalExpenses = calculateTotalExpenses(expenses);
+
+            return Text(
+              '$totalExpenses FCFA',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              ),
+            );
+            }
+          
+            }
+                    )],
                     ),
                   ),
                 ],
@@ -292,6 +358,10 @@ class _BudgetPageState extends State<BudgetPage> {
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(content: Text("Envoi en cours ...")),
                                       );
+                                      setState(() {
+                        widget.nouveauBudget.budgetMontant = int.parse(budget.budgetMontant as String);
+                      });
+                      depenseService.fetchDepensesList();
                                       FocusScope.of(context).requestFocus(FocusNode());
                                     }
                                     Navigator.of(context).pop();

@@ -26,7 +26,7 @@ class ChatingSection extends StatelessWidget {
             children: [
               const SizedBox(height: 15),
               Text(
-                "Alla Burda",
+                "Alla Baba",
                 style: GoogleFonts.inter(
                   color: Colors.black87,
                   fontSize: 15,
@@ -34,7 +34,7 @@ class ChatingSection extends StatelessWidget {
                 ),
               ),
               Text(
-                "Was online 56 seconde ago",
+                "La date du 05",
                 style: GoogleFonts.inter(
                   color: Colors.grey,
                   fontSize: 13,
@@ -43,7 +43,7 @@ class ChatingSection extends StatelessWidget {
               ),
               const SizedBox(height: 45),
               TextMessage(
-                message: "Months on ye at by esteem",
+                message: "Mois prochaine ok",
                 date: "17:19",
                 senderProfile: senderProfile,
                 isReceiver: 1,
@@ -53,25 +53,25 @@ class ChatingSection extends StatelessWidget {
               const ImageMessage(
                 image: 'assets/images/b1.png',
                 date: "17:09",
-                description: "Least their she you now above going stand forth",
+                description: "Pour une semaine",
               ),
              
               TextMessage(
-                message: "Under as seems we me stuff",
+                message: "30 000  parfait",
                 date: "16:53",
                 senderProfile: senderProfile,
                 isReceiver: 0,
                 isDirect: 0,
               ),
               TextMessage(
-                message: "Next it draw in draw much bred",
+                message: "rendez vous lundi",
                 date: "16:50",
                 senderProfile: senderProfile,
                 isReceiver: 0,
                 isDirect: 1,
               ),
               TextMessage(
-                message: "Sure that that way gave",
+                message: "avec plaisir madame",
                 date: "16:48",
                 senderProfile: senderProfile,
                 isReceiver: 1,

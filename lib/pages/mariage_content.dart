@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:app_wedding_yours/modeles/budget.dart';
 import 'package:app_wedding_yours/modeles/mariage.dart';
@@ -185,7 +184,7 @@ class MariageContent extends StatelessWidget {
                         print('Un budget existe déjà pour ce mariage.');
                          Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: existingBudget)),
+                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: existingBudget, mariageId: mariageDetails.mariageId)),
                         );
                       } else {
                         // Aucun budget existant, vous pouvez créer un nouveau budget
@@ -199,7 +198,7 @@ class MariageContent extends StatelessWidget {
                         // Naviguer vers la page BudgetPage avec le nouveauBudget
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: newBudget)),
+                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: newBudget, mariageId: mariageDetails.mariageId)),
                         );
                       }
                     },

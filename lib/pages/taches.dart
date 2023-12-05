@@ -26,7 +26,7 @@ StreamController<List<Tache>> _tasksController = StreamController<List<Tache>>.b
      late TacheService tacheService; 
    void initState() {
     super.initState();
-    fetchTasksList();
+    fetchTasksList(widget.mariageId);
     tacheService = TacheService(); // Initialisez tacheService ici
     // Écouter les mises à jour de la liste de tâches
     tacheService.tasksStream.listen((List<Tache> tasks) {
@@ -50,15 +50,18 @@ StreamController<List<Tache>> _tasksController = StreamController<List<Tache>>.b
     statusController.dispose();
   }
 //============
-Future<void> fetchTasksList() async {
+Future<void> fetchTasksList(String mariageId) async {
   try {
-    // Utilisation de Firestore pour récupérer les tâches
-    QuerySnapshot<Map<String, dynamic>> taskSnapshot = await FirebaseFirestore.instance.collection('taches').get();
+    // Utilisation de Firestore pour récupérer les tâches avec le mariageId spécifié
+    QuerySnapshot<Map<String, dynamic>> taskSnapshot = await FirebaseFirestore.instance
+        .collection('taches')
+        .where('mariageId', isEqualTo: mariageId)
+        .get();
 
     // Convertir les documents Firestore en une liste de tâches
     List<Tache> tasksList = taskSnapshot.docs.map((doc) {
       return Tache.fromMap(
-        doc.data() as Map<String, dynamic>, doc.reference
+          doc.data() as Map<String, dynamic>, doc.reference
       );
     }).toList();
 
@@ -69,6 +72,7 @@ Future<void> fetchTasksList() async {
     _tasksController.addError(e); // Émettre une erreur si la récupération échoue
   }
 }
+
    //================================ for date ====================================
  DateTime? selectedDate;
   Future<void> _selectDate(BuildContext context) async {
@@ -249,8 +253,16 @@ Future<void> fetchTasksList() async {
 
     return Expanded(
   child: ListView.builder(
-    itemCount: tasksList.length * 2 - 1,
-    itemBuilder: (context, index) {
+   itemCount: tasksList.isEmpty ? 1 : tasksList.length * 2 - 1,
+  itemBuilder: (context, index) {
+    if (tasksList.isEmpty) {
+      // Si la liste est vide, affichez un élément de liste indiquant qu'il n'y a pas de tâches.
+      return ListTile(
+        title: Text('Aucune tâche disponible'),
+        // Ajoutez d'autres propriétés au besoin.
+      );
+    }
+      
       if (index.isOdd) {
         return Divider(height: 1); // Réduisez la hauteur du Divider à 0
       }
@@ -444,7 +456,7 @@ Future<void> fetchTasksList() async {
 
                             // Mettre à jour la tâche dans la base de données
                             tacheService.update(modifiedTask);
-                            fetchTasksList();
+                            fetchTasksList(widget.mariageId);
                             Navigator.of(context).pop();
                           }
                         },
@@ -493,7 +505,7 @@ Future<void> fetchTasksList() async {
             TextButton(
               onPressed: () {
                 tacheService.delete(selectedTask!.tacheId ?? '');
-                fetchTasksList();
+                fetchTasksList(widget.mariageId);
                 Navigator.of(context).pop(); // Ferme la boîte de dialogue après la suppression
               },
               child: Text('Oui', 
@@ -680,7 +692,7 @@ Future<void> fetchTasksList() async {
                               );
 
                               tacheService.create(ttache);
-                              fetchTasksList();
+                              fetchTasksList(widget.mariageId);
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text("Envoi en cours ...")),
                           );

@@ -181,7 +181,7 @@ class MessageSection extends StatelessWidget {
     {
       'senderProfile': 'assets/images/b5.png',
       'senderName': 'Nara',
-      'message': 'Hello! how are you',
+      'message': 'Salut comment allez vous',
       'unRead': 0,
       'date': '16:35',
     },
@@ -189,21 +189,21 @@ class MessageSection extends StatelessWidget {
     {
       'senderProfile': 'assets/images/b2.png',
       'senderName': 'Sory',
-      'message': 'Hello! how are you',
+      'message': 'çava je peux aider',
       'unRead': 3,
       'date': '07:31',
     },
     {
       'senderProfile': 'assets/images/b3.png',
       'senderName': 'Ly',
-      'message': 'Hello! how are you',
+      'message': 'Disponible ce mois',
       'unRead': 0,
       'date': '07:31',
     },
     {
       'senderProfile': 'assets/images/b2.png',
       'senderName': 'Sory',
-      'message': 'Hello! how are you',
+      'message': 'Salut ...',
       'unRead': 3,
       'date': '07:31',
     },

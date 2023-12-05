@@ -34,6 +34,19 @@ class BudgetService {
     return await _firestore.collection('budgets').doc(mariageId).get();
   }
 
+ // Method to update a budget
+ Future<void> update(Budget budget) async {
+    try {
+      // Utilisez Firestore pour mettre à jour la tâche
+      await FirebaseFirestore.instance
+          .collection('budgets')
+          .doc(budget.budgetId)
+          .update(budget.toMap()); 
+    } catch (e) {
+      print('Erreur lors de la mise à jour de la tâche: $e');
+      throw e;
+    }
+  }
 
 
 }
