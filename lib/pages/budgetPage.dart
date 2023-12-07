@@ -11,8 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 class BudgetPage extends StatefulWidget {
   final Budget nouveauBudget;
   final mariageId;
-
-  BudgetPage({Key? key, required this.nouveauBudget, required this.mariageId})
+  //final String budgetId;
+  BudgetPage({Key? key, required this.nouveauBudget, required this.mariageId, })
       : super(key: key);
 
   @override
@@ -28,7 +28,8 @@ late BudgetService budgetService;
     super.initState();
     depenseService = DepenseService();
     budgetService = BudgetService();
-    depenseService.fetchDepensesList(); // Appeler pour initialiser la liste au début
+    depenseService.fetchDepensesList(widget.nouveauBudget.budgetId ??'');
+     // Appeler pour initialiser la liste au début
   }
   final descriptionController = TextEditingController();
   final depensesMontantController = TextEditingController();
@@ -98,7 +99,7 @@ late BudgetService budgetService;
 
                         GestureDetector(
                           onTap: () {
-                            depenseService.fetchDepensesList();
+                            depenseService.fetchDepensesList(widget.mariageId);
                              showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -125,7 +126,7 @@ late BudgetService budgetService;
                 setState(() {
                         widget.nouveauBudget.budgetMontant = int.parse(montant);
                       });
-                      depenseService.fetchDepensesList();
+                      depenseService.fetchDepensesList(widget.mariageId);
                FocusScope.of(context).requestFocus(FocusNode());
                Navigator.of(context).pop();
               },
@@ -354,14 +355,15 @@ late BudgetService budgetService;
                                         budgetId: budget.budgetId ?? '',
                                       );
 
-                                      depenseService.createDepense(dd);
+                                      depenseService.createDepense(dd, budget.budgetId??'');
                                       ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(content: Text("Envoi en cours ...")),
                                       );
                                       setState(() {
-                        widget.nouveauBudget.budgetMontant = int.parse(budget.budgetMontant as String);
-                      });
-                      depenseService.fetchDepensesList();
+                                      widget.nouveauBudget.budgetMontant = budget.budgetMontant ;
+                                    });
+                                    depenseService.fetchDepensesList(budget.budgetId??'');
+                                    print(depenseService.fetchDepensesList(budget.budgetId??''));
                                       FocusScope.of(context).requestFocus(FocusNode());
                                     }
                                     Navigator.of(context).pop();

@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../modeles/invite.dart';
+
 class Invites extends StatefulWidget {
   const Invites({Key? key}) : super(key: key);
 
@@ -82,13 +84,15 @@ class _InvitesState extends State<Invites> {
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('excelData').snapshots(),
+        stream: FirebaseFirestore.instance.collection('invites').snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return CircularProgressIndicator();
           }
 
-          var excelData = snapshot.data!.docs;
+          var datas = snapshot.data!.docs;
+          final excelData = datas.map((e) => Invite.fromMap(e.data() as Map<String, dynamic>)).toList();
+          print(excelData.toString());
 
           return Column(
             children: [
@@ -147,29 +151,57 @@ class _InvitesState extends State<Invites> {
               child:SingleChildScrollView(
               child:Column(
                 children: [
-                   ListView.builder(
-                    shrinkWrap: true, // Permet au ListView de réduire sa taille pour s'adapter au contenu
-                    physics: NeverScrollableScrollPhysics(), // Désactive le défilement du ListView
-                    itemCount: excelData.length,
-                    itemBuilder: (context, index) {
-                      var data = excelData[index].data() as Map<String, dynamic>;
+                ListView.builder(
+  shrinkWrap: true,
+  physics: NeverScrollableScrollPhysics(),
+  itemCount: excelData.length,
+  itemBuilder: (context, index) {
+    var data = excelData[index];
 
-                      // Utilisez une liste de widgets pour afficher dynamiquement les colonnes
-                      List<Widget> columnWidgets = [];
+    // Créer une liste de widgets pour afficher les valeurs en ligne
+    List<Widget> rowWidgets = [];
 
-                      data.forEach((key, value) {
-                        columnWidgets.add(
-                          Text('$key: $value'),
-                        );
-                      });
+    // data.forEach((key, value) {
+    //   // Ajouter chaque valeur à la liste de widgets
+    //   rowWidgets.add(
+    //     Padding(
+    //       padding: const EdgeInsets.all(8.0),
+    //       child: Text('$value'),
+    //     ),
+    //   );
+    // });
+    rowWidgets.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(data.nom),
+        ));
+    rowWidgets.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(data.prenom),
+        ));
+    rowWidgets.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(data.email),
+        ));
+    rowWidgets.add(Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(data.tel),
+        ));
 
-                      return Card(
-                        child: Column(
-                          children: columnWidgets,
-                        ),
-                      );
-                    },
-                  ),
+    // Ajouter un séparateur entre les enregistrements
+    rowWidgets.add(Divider());
+
+    return Card(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround, // Ajuster selon vos préférences
+        children: rowWidgets,
+      ),
+    );
+  },
+),
+
+
+
+
                 ],
               ),
               ),),
@@ -397,24 +429,49 @@ class _InvitesState extends State<Invites> {
   }
 
   Future<void> processExcelFile(File file) async {
-    var bytes = file.readAsBytesSync();
-    var excel = Excel.decodeBytes(bytes);
+  var bytes = file.readAsBytesSync();
+  var excel = Excel.decodeBytes(bytes);
 
-    for (var table in excel.tables.keys) {
-      var data = excel.tables[table]!.rows;
+   var table = excel.tables.keys.first;
+  var data = excel.tables[table]!.rows;
+ int rowIndex = 0;
 
-      for (var row in data) {
-        // Créez un Map pour stocker les données de la ligne
-        Map<String, dynamic> rowData = {};
+// Parcourir les lignes de la feuille de calcul
+for (var row in data) {
+  // Incrémenter le compteur de ligne
+  rowIndex++;
 
-        // Parcourez toutes les colonnes de la ligne
-        for (var i = 0; i < row.length; i++) {
-          rowData['column$i'] = row[i]?.toString() ?? '';
-        }
-
-        // Ajoutez les données à Firebase
-        await FirebaseFirestore.instance.collection('excelData').add(rowData);
-      }
-    }
+  // Ignorer la première ligne (entêtes)
+  if (rowIndex == 1) {
+    continue;
   }
+
+  // Créez un Map pour stocker les données de la ligne
+  Map<String, dynamic> rowData = {};
+
+  // Définissez les indices des colonnes que vous souhaitez extraire
+  var nomIndex = 0;
+  var prenomIndex = 1;
+  var emailIndex = 2;
+  var telephoneIndex = 3;
+
+  // Ajoutez les valeurs des colonnes à rowData
+  var nom = row[nomIndex]?.value;
+  var prenom = row[prenomIndex]?.value;
+  var email = row[emailIndex]?.value;
+  var telephone = row[telephoneIndex]?.value;
+
+  // Vérifiez que les valeurs ne sont pas null ou vides
+  if (nom != null && prenom != null && email != null && telephone != null) {
+    rowData['nom'] = nom is SharedString ? nom.toString() : nom;
+    rowData['prenom'] = prenom is SharedString ? prenom.toString() : prenom;
+    rowData['email'] = email is SharedString ? email.toString() : email;
+    rowData['telephone'] = telephone is SharedString ? telephone.toString() : telephone.toString();
+
+    // Ajoutez les données à Firebase
+    await FirebaseFirestore.instance.collection('invites').add(rowData);
+  }
+}
+  }
+
 }

@@ -72,48 +72,66 @@ class DepenseService {
   Stream<List<Depense>> get depensesStream => _depensesController.stream;
 
   // Méthode pour récupérer la liste des dépenses
-  Future<void> fetchDepensesList() async {
-    try {
-      QuerySnapshot<Map<String, dynamic>> depenseSnapshot = await FirebaseFirestore.instance.collection('depenses').get();
+  // Future<void> fetchDepensesList() async {
+  //   try {
+  //     QuerySnapshot<Map<String, dynamic>> depenseSnapshot = await FirebaseFirestore.instance.collection('depenses').get();
 
-      List<Depense> depensesList = depenseSnapshot.docs.map((doc) {
-        return Depense.fromMap(doc.data() as Map<String, dynamic>, doc.reference);
-      }).toList();
+  //     List<Depense> depensesList = depenseSnapshot.docs.map((doc) {
+  //       return Depense.fromMap(doc.data() as Map<String, dynamic>, doc.reference);
+  //     }).toList();
 
-      _depensesController.add(depensesList);
-    } catch (e) {
-      print('Erreur lors de la récupération des dépenses: $e');
-      _depensesController.addError(e);
-    }
-  }
+  //     _depensesController.add(depensesList);
+  //   } catch (e) {
+  //     print('Erreur lors de la récupération des dépenses: $e');
+  //     _depensesController.addError(e);
+  //   }
+  // }
+      Future<void> fetchDepensesList(String budgetId) async {
+        try {
+          QuerySnapshot<Map<String, dynamic>> depenseSnapshot = await FirebaseFirestore.instance
+              .collection('depenses')
+              .where('budgetId', isEqualTo: budgetId)
+              .get();
+
+          List<Depense> depensesList = depenseSnapshot.docs.map((doc) {
+            return Depense.fromMap(doc.data() as Map<String, dynamic>, doc.reference);
+          }).toList();
+
+          _depensesController.add(depensesList);
+        } catch (e) {
+          print('Erreur lors de la récupération des dépenses: $e');
+          _depensesController.addError(e);
+        }
+      }
+
 
   // Méthode pour créer une dépense
-  Future<void> createDepense(Depense depense) async {
+  Future<void> createDepense(Depense depense, String budgetId) async {
     try {
       final docRef = await FirebaseFirestore.instance.collection('depenses').add(depense.toMap());
       depense.depenseId = docRef.id;
 
       // Émettre les mises à jour de la liste
-      await fetchDepensesList();
+      await fetchDepensesList(budgetId);
     } catch (e) {
       print('Erreur lors de la création de la dépense: $e');
     }
   }
 
   // Méthode pour supprimer une dépense
-  Future<void> deleteDepense(String depenseId) async {
+  Future<void> deleteDepense(String depenseId, String budgetId) async {
     try {
       await FirebaseFirestore.instance.collection('depenses').doc(depenseId).delete();
 
       // Émettre les mises à jour de la liste
-      await fetchDepensesList();
+      await fetchDepensesList(budgetId);
     } catch (e) {
       print('Erreur lors de la suppression de la dépense: $e');
     }
   }
 
   // Méthode pour mettre à jour une dépense
-  Future<void> updateDepense(Depense depense) async {
+  Future<void> updateDepense(Depense depense, String budgetId) async {
     try {
       await FirebaseFirestore.instance
           .collection('depenses')
@@ -121,11 +139,29 @@ class DepenseService {
           .update(depense.toMap());
 
       // Émettre les mises à jour de la liste
-      await fetchDepensesList();
+      await fetchDepensesList(budgetId);
     } catch (e) {
       print('Erreur lors de la mise à jour de la dépense: $e');
     }
   }
+
+  Future<void> fetchDepensesBybudgetId(String budgetId) async {
+  try {
+    QuerySnapshot<Map<String, dynamic>> depenseSnapshot = await FirebaseFirestore.instance
+        .collection('depenses')
+        .where('budgetId', isEqualTo: budgetId)
+        .get();
+
+    List<Depense> depensesList = depenseSnapshot.docs.map((doc) {
+      return Depense.fromMap(doc.data() as Map<String, dynamic>, doc.reference);
+    }).toList();
+
+    _depensesController.add(depensesList);
+  } catch (e) {
+    print('Erreur lors de la récupération des dépenses par mariage: $e');
+    _depensesController.addError(e);
+  }
+}
 
   // Fermer le StreamController lorsqu'il n'est plus utilisé
   void dispose() {

@@ -184,7 +184,7 @@ class MariageContent extends StatelessWidget {
                         print('Un budget existe déjà pour ce mariage.');
                          Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: existingBudget, mariageId: mariageDetails.mariageId)),
+                          MaterialPageRoute(builder: (context) => BudgetPage(nouveauBudget: existingBudget, mariageId: mariageDetails.mariageId, )),
                         );
                       } else {
                         // Aucun budget existant, vous pouvez créer un nouveau budget

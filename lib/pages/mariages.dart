@@ -128,7 +128,7 @@ class _MariagesState extends State<Mariages> {
                     child: Container(
                       height: 180,
                       child: buildCardM(
-                          mariage['photo'], mariage['monsieur'] + '&' + mariage['madame']),
+                          mariage['photo'], mariage['monsieur'] + ' & ' + mariage['madame']),
                     ),
                   ),
               ],

@@ -288,15 +288,15 @@ Future<void> fetchTasksList(String mariageId) async {
                 icon: Icon(Icons.edit),
                 onPressed: () {
                   setState(() {
-    selectedTask = tasksList[indexTache];
+                  selectedTask = tasksList[indexTache];
 
-    // Mettre à jour les contrôleurs avec les valeurs de la tâche sélectionnée
-    nomController.text = selectedTask?.nom ?? '';
-    descriptionController.text = selectedTask?.description ?? '';
-    statusController.text = selectedTask?.status ?? '';
-    selectedDate = selectedTask?.date;
-  });
-                  // Afficher le modal pour la modification
+                  // Mettre à jour les contrôleurs avec les valeurs de la tâche sélectionnée
+                  nomController.text = selectedTask?.nom ?? '';
+                  descriptionController.text = selectedTask?.description ?? '';
+                  statusController.text = selectedTask?.status ?? '';
+                  selectedDate = selectedTask?.date;
+                });
+                   // Afficher le modal pour la modification
                   showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
